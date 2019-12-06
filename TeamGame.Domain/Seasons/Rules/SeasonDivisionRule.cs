@@ -9,8 +9,8 @@ namespace TeamGame.Domain.Seasons.Rules
         public DivisionLevel Level { get; set; }
         public string Name { get; set; }
         public SeasonDivisionRule Parent { get; set; }
-        public IList<SeasonDivisionRule> Children { get; set; }
-        public IList<SeasonTeamRule> Teams { get; set; }
+        public IList<SeasonDivisionRule> Children { get; set; } = new List<SeasonDivisionRule>();
+        public IList<SeasonTeamRule> Teams { get; set; } = new List<SeasonTeamRule>();
 
         public IList<Team> GetTeamsInDivision()
         {
@@ -24,6 +24,18 @@ namespace TeamGame.Domain.Seasons.Rules
             });
 
             return result;
+        }
+
+        public void AddChildRule(SeasonDivisionRule rule) 
+        {
+            rule.Parent = this;
+            Children.Add(rule);
+        }
+
+        public void AddTeam(SeasonTeamRule team)
+        {
+            team.Division = this;
+            Teams.Add(team);
         }
     }
 }
