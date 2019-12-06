@@ -80,7 +80,7 @@ namespace TeamGame.Domain.Seasons
                 throw new SeasonException("Team : " + team.Name + " belongs to the parent division - " + Parent.Name + " - " + Name);
             }
 
-            team.AddDivisionToTeam(this);
+            team.AddDivisionToSeason(this);
 
             if (_Teams == null)
             {

@@ -14,5 +14,10 @@ namespace TeamGame.Domain.Seasons.Rules
             
             return null;
         }
+
+        public SeasonTeam CreateCompetitionTeam(Season season, SeasonDivision division, Team rule)
+        {            
+
+        }
     }
 }

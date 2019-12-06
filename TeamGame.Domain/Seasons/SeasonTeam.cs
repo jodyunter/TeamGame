@@ -10,7 +10,7 @@ namespace TeamGame.Domain.Seasons
         public ICompetition Competition { get; set; }        
         public IList<SeasonDivision> Divisions { get; set; } //teams can exist in more than one division per season so we can group teams how we want
 
-        public void AddDivisionToTeam(SeasonDivision division)
+        public void AddDivisionToSeason(SeasonDivision division)
         {
             if (Divisions == null)
             {
