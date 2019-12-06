@@ -9,13 +9,15 @@ namespace TeamGame.Domain.Seasons
     {
         public int Number { get; set; }
         public int Year { get; set; }
+        public int StartingDay { get; set; }
         public string Name {get; set; }
 
         public bool Started { get; set; } = false;
         public bool Complete { get; set; } = false; //will need to work with schedule service to find unfinished games
 
-        public IList<ICompetitionTeam> Teams { get; set; }
-        public IList<SeasonDivision> Divisions { get; set; }
+        public IList<ICompetitionTeam> Teams { get; set; } = new List<ICompetitionTeam>();
+        public IList<SeasonDivision> Divisions { get; set; } = new List<SeasonDivision>();
+
         public IList<SeasonRanking> Ranking {
             get
             {
@@ -35,27 +37,20 @@ namespace TeamGame.Domain.Seasons
 
             if (team is SeasonTeam)
             {
-                var exists = Teams == null ? false : Teams.Where(t => t.Equals(team.Name)).FirstOrDefault() != null;
+                var exists = Teams.Where(t => t.Equals(team.Name)).FirstOrDefault() != null;
 
                 if (!exists)
                 {
                     team.Competition = this;
-                    if (Teams == null)
-                    {
-                        Teams = new List<ICompetitionTeam>();
-                    }
 
                     Teams.Add(team);
 
                     var seasonTeam = (SeasonTeam)team;
 
-                    if (seasonTeam.Divisions != null)
+                    seasonTeam.Divisions.ToList().ForEach(d =>
                     {
-                        seasonTeam.Divisions.ToList().ForEach(d =>
-                        {
-                            AddDivision(d);
-                        });
-                    }
+                        AddDivision(d);
+                    });                   
                 }
             }
             else
@@ -86,29 +81,21 @@ namespace TeamGame.Domain.Seasons
             {
                 division.GetTeamsThatBelongToDivision().ToList().ForEach(t =>
                 {
-                    if (Teams == null || Teams.Where(team => team.Parent.Id == t.Parent.Id).FirstOrDefault() == null)
+                    if (Teams.Where(team => team.Parent.Id == t.Parent.Id).FirstOrDefault() == null)
                     {
                         AddTeam(t);
                     }
                 });                
             }
             
-            if (Divisions == null)
-            {
-                Divisions = new List<SeasonDivision>();
-            }
-
             if (Divisions.Where(d => d.Name.Equals(division.Name)).FirstOrDefault() == null)
             {
                 Divisions.Add(division);
 
-                if (division.Children != null)
+                division.Children.ToList().ForEach(cd =>
                 {
-                    division.Children.ToList().ForEach(cd =>
-                    {
-                        AddDivision(cd);
-                    });
-                }
+                    AddDivision(cd);
+                });    
             }
             else
             {

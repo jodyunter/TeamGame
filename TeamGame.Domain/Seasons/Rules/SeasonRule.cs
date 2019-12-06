@@ -10,10 +10,12 @@ namespace TeamGame.Domain.Seasons.Rules
         public string Name { get; set; }
         public IList<SeasonDivisionRule> DivisionRules { get; set; }
         public IList<SeasonTeamRule> TeamRules { get; set; }
-        public Season Create(Season previousSeason)
+        public Season Create(Season previousSeason, int number, int year, int startingDay)
         {
+
+            var season = new Season() { Name = Name, Complete = false, Number = number, Year = year, StartingDay = startingDay, Started = false };
             
-            return null;
+            
         }
 
     }

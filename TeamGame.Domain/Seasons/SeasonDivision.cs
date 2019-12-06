@@ -10,10 +10,10 @@ namespace TeamGame.Domain.Seasons
         public Season Season { get; set; }
         public DivisionLevel Level { get; set; }
         public SeasonDivision Parent { get; set; }
-        public IList<SeasonDivision> Children { get; set; }
-        public IList<SeasonRanking> Ranking { get; set; }
-        
-        public IList<SeasonTeam> _Teams = null;
+        public IList<SeasonDivision> Children { get; set; } = new List<SeasonDivision>();
+        public IList<SeasonRanking> Ranking { get; set; } = new List<SeasonRanking>();
+
+        public IList<SeasonTeam> _Teams = new List<SeasonTeam>();
 
         //this returns any teams belonging to this division OR to a child division
         public IList<SeasonTeam> Teams
@@ -21,19 +21,13 @@ namespace TeamGame.Domain.Seasons
             get
             {
                 var result = new List<SeasonTeam>();
+                
+                result.AddRange(_Teams);                
 
-                if (_Teams != null)
+                Children.ToList().ForEach(child =>
                 {
-                    result.AddRange(_Teams);
-                }
-
-                if (Children != null)
-                {
-                    Children.ToList().ForEach(child =>
-                    {
-                        result.AddRange(child.Teams);
-                    });
-                }
+                    result.AddRange(child.Teams);
+                });
 
                 return result;
             }
@@ -58,12 +52,12 @@ namespace TeamGame.Domain.Seasons
         //does the team belong to this division and not a child division?
         public bool IsTeamInList(SeasonTeam team)
         {
-            return _Teams == null ? false : _Teams.Where(t => t.Parent.Id == team.Parent.Id).FirstOrDefault() != null;
+            return _Teams.Where(t => t.Parent.Id == team.Parent.Id).FirstOrDefault() != null;
         }
         //this could be child division
         public bool IsTeamInDivision(SeasonTeam team)
         {
-            return Teams == null ? false : Teams.Where(t => t.Parent.Id == team.Parent.Id).FirstOrDefault() != null;
+            return Teams.Where(t => t.Parent.Id == team.Parent.Id).FirstOrDefault() != null;
         }
 
         //we only want teams actually in this division
@@ -73,14 +67,11 @@ namespace TeamGame.Domain.Seasons
         }
         public void AddTeam(SeasonTeam team)
         {
-            if (Children != null)
+   
+            if (!(Children.ToList().Where(d => d.IsTeamInDivision(team)).ToList().FirstOrDefault() == null))
             {
-                if (!(Children.ToList().Where(d => d.IsTeamInDivision(team)).ToList().FirstOrDefault() == null))
-                {
-                    throw new SeasonException("Team : " + team.Name + " already belongs to a child division of " + Name);    
-                }
-
-            }
+                throw new SeasonException("Team : " + team.Name + " already belongs to a child division of " + Name);    
+            }            
 
             if (Parent != null && Parent.IsTeamInDivision(team))
             {
@@ -89,20 +80,12 @@ namespace TeamGame.Domain.Seasons
 
             team.AddDivisionToTeam(this);
 
-            if (_Teams == null)
-            {
-                _Teams = new List<SeasonTeam>();                
-            }
-
             _Teams.Add(team);            
         }
 
         public void AddChildDivision(SeasonDivision child)
         {
-            if (Children == null)
-            {
-                Children = new List<SeasonDivision>();
-            }
+            Children = new List<SeasonDivision>();            
 
             Children.Add(child);
             child.Parent = this;
