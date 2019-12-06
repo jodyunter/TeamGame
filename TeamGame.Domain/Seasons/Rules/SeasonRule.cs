@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 
 namespace TeamGame.Domain.Seasons.Rules
 {
@@ -14,7 +14,14 @@ namespace TeamGame.Domain.Seasons.Rules
         {
 
             var season = new Season() { Name = Name, Complete = false, Number = number, Year = year, StartingDay = startingDay, Started = false };
+
             
+            var parentTeamList = TeamRules.Select(t => t.Parent).Distinct().ToList();
+
+            parentTeamList.ForEach(team =>
+            {
+                
+            });
             
         }
 
