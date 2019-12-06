@@ -18,7 +18,7 @@ namespace TeamGame.Test.Domain.Seasons
         [Fact]
         public void ShouldGetTeamsWhenChildrenNullAndHasTeams()
         {
-            var division = new SeasonDivision();
+            var division = new SeasonDivision() { Name = "Test Div" };
 
             division.AddTeam(new SeasonTeam() { Name = "Team 1" });
             division.AddTeam(new SeasonTeam() { Name = "Team 2" });
@@ -35,9 +35,9 @@ namespace TeamGame.Test.Domain.Seasons
         [Fact]
         public void ShouldGetTeamsWithChildrenAndDoesNotHaveTeams()
         {
-            var division = new SeasonDivision();
-            var child1 = new SeasonDivision();
-            var child2 = new SeasonDivision();
+            var division = new SeasonDivision() { Name = "Parent Div" };
+            var child1 = new SeasonDivision() { Name = "Child 1" };
+            var child2 = new SeasonDivision() { Name = "Child 2" };
 
             child1.AddTeam(new SeasonTeam() { Name = "Team 1" });
             child1.AddTeam(new SeasonTeam() { Name = "Team 2" });

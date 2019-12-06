@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using TeamGame.Domain;
 using TeamGame.Domain.Seasons;
 using Xunit;
 
@@ -22,7 +23,7 @@ namespace TeamGame.Test.Domain.Seasons
 
             for (int i = 0; i < 10; i++)
             {
-                league.AddTeam(new SeasonTeam() { Name = "Team " + i });
+                league.AddTeam(new SeasonTeam() { Parent = new Team() { Name = "Team " + i, Id = i }, Id = i * 100, Name = "Team " + i });
             }
 
             season.AddDivision(league);
@@ -52,7 +53,7 @@ namespace TeamGame.Test.Domain.Seasons
 
             for (int i = 0; i < 10; i++)
             {
-                conference.AddTeam(new SeasonTeam() { Name = "Team " + i });
+                conference.AddTeam(new SeasonTeam() { Parent = new Team() { Name = "Team " + i, Id = i }, Id = i * 100, Name = "Team " + i });
             }
 
             season.AddDivision(league);

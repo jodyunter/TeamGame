@@ -6,7 +6,7 @@ using System.Text;
 namespace TeamGame.Domain.Standing
 {
     public class StandingsTeam : ITeam,IComparable<StandingsTeam>
-    {        
+    {                
         public Team Parent { get; set; }
         public string Name { get; set; }
         public int Rank { get; set; } = -1;

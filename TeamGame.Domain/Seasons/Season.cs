@@ -29,13 +29,13 @@ namespace TeamGame.Domain.Seasons
             }    
         
         }
-
+       
         public void AddTeam(ICompetitionTeam team)
         {
 
             if (team is SeasonTeam)
             {
-                var exists = Teams == null ? false : Teams.Where(t => t.Name.Equals(team.Name)).FirstOrDefault() != null;
+                var exists = Teams == null ? false : Teams.Where(t => t.Equals(team.Name)).FirstOrDefault() != null;
 
                 if (!exists)
                 {
@@ -63,6 +63,20 @@ namespace TeamGame.Domain.Seasons
                 throw new SeasonException("Trying to add a non-season team to season");
             }
         }
+
+        public void AddTeamToDivision(SeasonDivision division, SeasonTeam team)
+        {
+            //first if the division
+            if (!team.IsDivisionInList(division))
+            {
+                team.AddDivisionToTeam(division);
+            }
+
+            if (!division.IsTeamInList(team))
+            {
+                division.AddTeam(team);
+            }
+        }
         
         public void AddDivision(SeasonDivision division)
         {
@@ -72,7 +86,7 @@ namespace TeamGame.Domain.Seasons
             {
                 division.GetTeamsThatBelongToDivision().ToList().ForEach(t =>
                 {
-                    if (Teams == null || Teams.Where(team => team.Name.Equals(t)).FirstOrDefault() == null)
+                    if (Teams == null || Teams.Where(team => team.Parent.Id == t.Parent.Id).FirstOrDefault() == null)
                     {
                         AddTeam(t);
                     }

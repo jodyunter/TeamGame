@@ -4,8 +4,9 @@ using System.Text;
 
 namespace TeamGame.Domain.Seasons.Rules
 {
-    public class SeasonRule:DataObject
+    public class SeasonRule:IDataObject
     {
+        public long Id { get; set; }
         public string Name { get; set; }
         public IList<SeasonDivisionRule> DivisionRules { get; set; }
         public IList<SeasonTeamRule> TeamRules { get; set; }
@@ -15,9 +16,5 @@ namespace TeamGame.Domain.Seasons.Rules
             return null;
         }
 
-        public SeasonTeam CreateCompetitionTeam(Season season, SeasonDivision division, Team rule)
-        {            
-
-        }
     }
 }

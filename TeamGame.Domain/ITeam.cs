@@ -4,8 +4,8 @@ using System.Text;
 
 namespace TeamGame.Domain
 {
-    public interface ITeam
-    {        
+    public interface ITeam: IDomain
+    {                
         string Name { get; set; }
         int Skill { get; set; }
     }

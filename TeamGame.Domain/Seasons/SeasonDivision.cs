@@ -15,6 +15,7 @@ namespace TeamGame.Domain.Seasons
         
         public IList<SeasonTeam> _Teams = null;
 
+        //this returns any teams belonging to this division OR to a child division
         public IList<SeasonTeam> Teams
         {
             get
@@ -54,9 +55,15 @@ namespace TeamGame.Domain.Seasons
             Ranking = ranking;            
         }
 
-        public bool DoesTeamBelongToDivision(SeasonTeam team)
+        //does the team belong to this division and not a child division?
+        public bool IsTeamInList(SeasonTeam team)
         {
-            return Teams == null ? false : Teams.Where(t => t.Name.Equals(team.Name)).FirstOrDefault() != null;
+            return _Teams == null ? false : _Teams.Where(t => t.Parent.Id == team.Parent.Id).FirstOrDefault() != null;
+        }
+        //this could be child division
+        public bool IsTeamInDivision(SeasonTeam team)
+        {
+            return Teams == null ? false : Teams.Where(t => t.Parent.Id == team.Parent.Id).FirstOrDefault() != null;
         }
 
         //we only want teams actually in this division
@@ -68,19 +75,19 @@ namespace TeamGame.Domain.Seasons
         {
             if (Children != null)
             {
-                if (!(Children.ToList().Where(d => d.DoesTeamBelongToDivision(team)).ToList().FirstOrDefault() == null))
+                if (!(Children.ToList().Where(d => d.IsTeamInDivision(team)).ToList().FirstOrDefault() == null))
                 {
                     throw new SeasonException("Team : " + team.Name + " already belongs to a child division of " + Name);    
                 }
 
             }
 
-            if (Parent != null && Parent.DoesTeamBelongToDivision(team))
+            if (Parent != null && Parent.IsTeamInDivision(team))
             {
                 throw new SeasonException("Team : " + team.Name + " belongs to the parent division - " + Parent.Name + " - " + Name);
             }
 
-            team.AddDivisionToSeason(this);
+            team.AddDivisionToTeam(this);
 
             if (_Teams == null)
             {

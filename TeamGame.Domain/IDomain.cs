@@ -5,6 +5,6 @@ using System.Text;
 namespace TeamGame.Domain
 {
     public interface IDomain
-    {
+    { 
     }
 }
