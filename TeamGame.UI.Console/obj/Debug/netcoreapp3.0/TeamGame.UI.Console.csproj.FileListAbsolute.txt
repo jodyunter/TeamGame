@@ -1,0 +1,14 @@
+C:\Users\jody_unterschutz\source\repos\TeamGame\TeamGame.UI.Console\bin\Debug\netcoreapp3.0\TeamGame.UI.Console.exe
+C:\Users\jody_unterschutz\source\repos\TeamGame\TeamGame.UI.Console\bin\Debug\netcoreapp3.0\TeamGame.UI.Console.deps.json
+C:\Users\jody_unterschutz\source\repos\TeamGame\TeamGame.UI.Console\bin\Debug\netcoreapp3.0\TeamGame.UI.Console.runtimeconfig.json
+C:\Users\jody_unterschutz\source\repos\TeamGame\TeamGame.UI.Console\bin\Debug\netcoreapp3.0\TeamGame.UI.Console.runtimeconfig.dev.json
+C:\Users\jody_unterschutz\source\repos\TeamGame\TeamGame.UI.Console\bin\Debug\netcoreapp3.0\TeamGame.UI.Console.dll
+C:\Users\jody_unterschutz\source\repos\TeamGame\TeamGame.UI.Console\bin\Debug\netcoreapp3.0\TeamGame.UI.Console.pdb
+C:\Users\jody_unterschutz\source\repos\TeamGame\TeamGame.UI.Console\bin\Debug\netcoreapp3.0\TeamGame.Domain.dll
+C:\Users\jody_unterschutz\source\repos\TeamGame\TeamGame.UI.Console\bin\Debug\netcoreapp3.0\TeamGame.Domain.pdb
+C:\Users\jody_unterschutz\source\repos\TeamGame\TeamGame.UI.Console\obj\Debug\netcoreapp3.0\TeamGame.UI.Console.csprojAssemblyReference.cache
+C:\Users\jody_unterschutz\source\repos\TeamGame\TeamGame.UI.Console\obj\Debug\netcoreapp3.0\TeamGame.UI.Console.AssemblyInfoInputs.cache
+C:\Users\jody_unterschutz\source\repos\TeamGame\TeamGame.UI.Console\obj\Debug\netcoreapp3.0\TeamGame.UI.Console.AssemblyInfo.cs
+C:\Users\jody_unterschutz\source\repos\TeamGame\TeamGame.UI.Console\obj\Debug\netcoreapp3.0\TeamGame.UI.Console.csproj.CopyComplete
+C:\Users\jody_unterschutz\source\repos\TeamGame\TeamGame.UI.Console\obj\Debug\netcoreapp3.0\TeamGame.UI.Console.dll
+C:\Users\jody_unterschutz\source\repos\TeamGame\TeamGame.UI.Console\obj\Debug\netcoreapp3.0\TeamGame.UI.Console.pdb
