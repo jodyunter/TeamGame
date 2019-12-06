@@ -20,7 +20,7 @@ namespace TeamGame.Domain.Seasons.Rules
 
             Children.ToList().ForEach(childRules =>
             {
-                result.AddRange(childRules.Teams.Select(t => t.Parent));
+                result.AddRange(childRules.GetTeamsInDivision());
             });
 
             return result;
