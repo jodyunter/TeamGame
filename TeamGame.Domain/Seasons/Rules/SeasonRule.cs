@@ -15,13 +15,22 @@ namespace TeamGame.Domain.Seasons.Rules
 
             var season = new Season() { Name = Name, Complete = false, Number = number, Year = year, StartingDay = startingDay, Started = false };
 
-            
+            var seasonTeams = new List<SeasonTeam>();
+
             var parentTeamList = TeamRules.Select(t => t.Parent).Distinct().ToList();
 
             parentTeamList.ForEach(team =>
             {
-                
+                seasonTeams.Add(new SeasonTeam(season, team, team.Name, team.Skill, 2, 1, null));
             });
+
+            var seasonDivisions = new List<SeasonDivision>();
+
+            DivisionRules.ToList().ForEach(rule =>
+            {
+
+            });
+
             
         }
 

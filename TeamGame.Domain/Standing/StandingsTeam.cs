@@ -22,6 +22,23 @@ namespace TeamGame.Domain.Standing
         public int PointsForTies { get; set; } = 1;
         public int GamesPlayed { get { return Wins + Loses + Ties; } } 
         
+        public StandingsTeam() { }
+
+        public StandingsTeam(Team parent, string name, int rank, int skill, int wins, int loses, int ties, int goalsFor, int goalsAgainst, int pointsForWins, int pointsForTies)
+        {
+            Parent = parent;
+            Name = name;
+            Rank = rank;
+            Skill = skill;
+            Wins = wins;
+            Loses = loses;
+            Ties = ties;
+            GoalsFor = goalsFor;
+            GoalsAgainst = goalsAgainst;
+            PointsForWins = pointsForWins;
+            PointsForTies = pointsForTies;
+        }
+
         public void ProcessWin(int us, int them)
         {
             ProcessGoals(us, them);
