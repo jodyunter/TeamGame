@@ -35,6 +35,18 @@ namespace TeamGame.Domain.Seasons
 
         public SeasonDivision() { }
 
+        public SeasonDivision(string name, Season season, DivisionLevel level, SeasonDivision parent)
+        {
+            Name = name;
+            Season = season;
+            Level = level;
+            Parent = parent;
+            if (parent != null)
+            {
+                Parent.AddChildDivision(this);
+            }
+        }
+
         public SeasonDivision(string name, Season season, DivisionLevel level, SeasonDivision parent, IList<SeasonDivision> children, IList<SeasonRanking> ranking)
         {
             Name = name;
@@ -84,11 +96,13 @@ namespace TeamGame.Domain.Seasons
         }
 
         public void AddChildDivision(SeasonDivision child)
-        {
-            Children = new List<SeasonDivision>();            
-
-            Children.Add(child);
-            child.Parent = this;
+        {            
+            if (Children.Where(c => c.Name.Equals(child.Name)) == null)
+            {
+                Children.Add(child);
+                child.Parent = this;
+            }
+                        
         }
     }
 

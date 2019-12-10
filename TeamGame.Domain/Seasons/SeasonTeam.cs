@@ -17,9 +17,9 @@ namespace TeamGame.Domain.Seasons
             base(parent, name, 0, skill, 0, 0, 0, 0, 0, pointsForWin, pointsForTie)
         {            
             Competition = competition;
-            if (divisions == null)
+            if (Divisions == null)
             {
-                divisions = new List<SeasonDivision>();
+                Divisions = new List<SeasonDivision>();
             }
             else
             {
