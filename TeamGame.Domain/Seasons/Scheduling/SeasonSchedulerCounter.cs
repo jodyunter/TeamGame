@@ -16,19 +16,21 @@ namespace TeamGame.Domain.Seasons.Scheduling
             switch(rule.RuleType)
             {
                 case SeasonScheduleRuleType.Divisional:
-                    if (rule.HomeGroup == null)
+                    if (rule.HomeGroup == null || rule.AwayGroup == null)
                     {
-                        throw new SeasonScheduleException("Home Gorup is null but Divisonal Rule Type selected");
-                    }
-                    if (rule.AwayGroup == null)
-                    {
-                        throw new SeasonScheduleException("Away Group is null but Division Rule Type selected");
+                        throw new SeasonScheduleException("One or both Groups are null but Divisonal Rule Type selected");
                     }
 
                     AddGames(rule.HomeGroup.GetTeamsInDivision(), rule.AwayGroup.GetTeamsInDivision(), true, rule.HomeAndAway);
 
                     break;
                 case SeasonScheduleRuleType.PreviousDivisionRank:
+                    if (rule.HomeGroup == null || rule.AwayGroup == null)
+                    {
+                        throw new SeasonScheduleException("One or both Groups are null but Previous Division Rank Rule Type selected");
+                    }
+
+                    
                     break;
                 case SeasonScheduleRuleType.Team:
                     break;
