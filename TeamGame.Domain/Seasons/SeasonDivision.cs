@@ -97,7 +97,7 @@ namespace TeamGame.Domain.Seasons
 
         public void AddChildDivision(SeasonDivision child)
         {            
-            if (Children.Where(c => c.Name.Equals(child.Name)) == null)
+            if (Children.Where(c => c.Name.Equals(child.Name)).FirstOrDefault() == null)
             {
                 Children.Add(child);
                 child.Parent = this;

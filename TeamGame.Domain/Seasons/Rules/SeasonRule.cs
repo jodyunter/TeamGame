@@ -21,22 +21,30 @@ namespace TeamGame.Domain.Seasons.Rules
             return season;
         }
 
-        public void CreateAndAddTeams(Season season, IList<SeasonTeamRule> TeamRules)
+        public void CreateAndAddTeams(Season season, IList<SeasonTeamRule> teamRules)
         {
-
+            if (teamRules != null)
+            {
+                teamRules.ToList().Select(t => t.Parent.Id).Distinct().ToList().ForEach(parentId =>
+                {
+                    var team = CreateAndAddTeam(season, TeamRules.ToList().Where(tr => tr.Parent.Id == parentId).ToList());
+                    season.Teams.Add(team);
+                });
+            }
         }
 
         public SeasonTeam CreateAndAddTeam(Season season, IList<SeasonTeamRule> rule)
         {
-            var team = new SeasonTeam(season, rule[0].Parent, rule[0].Parent.Name, rule[0].Parent.Skill 2, 1, null);
+            var team = new SeasonTeam(season, rule[0].Parent, rule[0].Parent.Name, rule[0].Parent.Skill, 2, 1, null);
 
             rule.ToList().ForEach(tr =>
             {
-                var div = season.Divisions.ToList().Where(t => t.Name.Equals(tr.Division))
+                var div = season.Divisions.ToList().Where(sd => sd.Name.Equals(tr.Division.Name)).First();
+                
+                div.AddTeam(team);
             });
-            team.AddDivisionToTeam
 
-         
+            return team;         
         }
         public void CreateAndAddDivision(Season season, IList<SeasonDivisionRule> rules)
         {
@@ -45,26 +53,26 @@ namespace TeamGame.Domain.Seasons.Rules
             //start the chain for each parent div
             rules.Where(r => r.Parent == null).ToList().ForEach(dr =>
             {
-                CreateAndAddDivision(season, seasonDivMasterList, dr);
+                CreateAndAddDivision(season, null, seasonDivMasterList, dr);
             });
 
             season.Divisions = seasonDivMasterList;
         }
-        public void CreateAndAddDivision(Season season, IList<SeasonDivision> masterList, SeasonDivisionRule rule)
+        public SeasonDivision CreateAndAddDivision(Season season, SeasonDivision parent, IList<SeasonDivision> masterList, SeasonDivisionRule rule)
         {
-  
-            //setup division by rule
-            var parent = masterList.Where(dr => dr.Name.Equals(rule.Parent.Name)).FirstOrDefault(); //must be an object or else this fails
+
 
             var newDiv = new SeasonDivision(rule.Name, season, rule.Level, parent);
 
-            masterList.Add(newDiv);
-            
 
             rule.Children.ToList().ForEach(cdr =>
             {
-                CreateAndAddDivision(season, masterList, cdr);
+                newDiv.AddChildDivision(CreateAndAddDivision(season, newDiv, masterList, cdr));
             });
+
+            masterList.Add(newDiv);
+
+            return newDiv;
         }
 
     }

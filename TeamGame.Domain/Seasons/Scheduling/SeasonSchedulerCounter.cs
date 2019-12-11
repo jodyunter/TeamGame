@@ -11,6 +11,31 @@ namespace TeamGame.Domain.Seasons.Scheduling
         //exceptions should really be validations
         public Dictionary<Team, SeasonScheduleTeamCounter> TeamCounts { get; set; } = new Dictionary<Team, SeasonScheduleTeamCounter>();
 
+        public void CountByRuleType(SeasonScheduleRule rule)
+        {
+            switch(rule.RuleType)
+            {
+                case SeasonScheduleRuleType.Divisional:
+                    if (rule.HomeGroup == null)
+                    {
+                        throw new SeasonScheduleException("Home Gorup is null but Divisonal Rule Type selected");
+                    }
+                    if (rule.AwayGroup == null)
+                    {
+                        throw new SeasonScheduleException("Away Group is null but Division Rule Type selected");
+                    }
+
+                    AddGames(rule.HomeGroup.GetTeamsInDivision(), rule.AwayGroup.GetTeamsInDivision(), true, rule.HomeAndAway);
+
+                    break;
+                case SeasonScheduleRuleType.PreviousDivisionRank:
+                    break;
+                case SeasonScheduleRuleType.Team:
+                    break;
+                default:
+                    throw new SeasonScheduleException("Base rule type: " + rule.RuleType);
+            }
+        }
         public void CountByRule(SeasonScheduleRule rule)
         {
             if (rule.ParentHomeTeam != null)
@@ -79,6 +104,14 @@ namespace TeamGame.Domain.Seasons.Scheduling
                 }
             }
 
+        }
+
+        public void AddGames(IList<Team> hometeams, IList<Team> opponents, bool isHome, bool homeAndAway)
+        {
+            hometeams.ToList().ForEach(homeTeam =>
+            {
+                AddGames(homeTeam, opponents, isHome, homeAndAway);
+            });
         }
 
         public void AddGames(Team team, IList<Team> opponents, bool isHome, bool homeAndAway)
