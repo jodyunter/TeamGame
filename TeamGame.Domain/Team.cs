@@ -9,5 +9,13 @@ namespace TeamGame.Domain
         public long Id { get;  set; }
         public string Name { get; set; }
         public int Skill { get; set; }
+
+        public Team() { }
+        public Team(long id, string name, int skill)
+        {
+            Id = id;
+            Name = name;
+            Skill = skill;
+        }
     }
 }

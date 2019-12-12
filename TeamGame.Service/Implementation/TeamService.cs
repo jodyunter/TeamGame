@@ -13,16 +13,6 @@ namespace TeamGame.Service
         private ITeamRepository teamRepo;
         private IModelMapper mapper;
 
-        private IList<TeamViewModel> teamViewList = new List<TeamViewModel>()
-            {
-                new TeamViewModel() { Id = 1, Name = "Team 1", Skill = 5 },
-                new TeamViewModel() { Id = 2, Name = "Team 2", Skill = 5 },
-                new TeamViewModel() { Id = 3, Name = "Team 3", Skill = 5 },
-                new TeamViewModel() { Id = 4, Name = "Team 4", Skill = 5 },
-                new TeamViewModel() { Id = 5, Name = "Team 5", Skill = 5 },
-                new TeamViewModel() { Id = 6, Name = "Team 6", Skill = 5 },
-            };
-
         public TeamService(ITeamRepository teamRepository, IModelMapper modelMapper)
         {
             teamRepo = teamRepository;

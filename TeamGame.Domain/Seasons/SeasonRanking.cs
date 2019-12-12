@@ -39,7 +39,7 @@ namespace TeamGame.Domain.Seasons
         {
             var teams = Standings.SortTeams(division.Teams.ToList<StandingsTeam>());
 
-            if (division.Ranking == null)
+            if (division.Ranking == null || division.Ranking.Count == 0)
             {
                 division.Ranking = new List<SeasonRanking>();
                 teams.ToList().ForEach(team =>

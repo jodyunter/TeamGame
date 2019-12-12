@@ -15,6 +15,7 @@ namespace TeamGame.Domain
         }
         public virtual Game CreateGame(ITeam home, ITeam away)
         {
+            if (home.Name == away.Name) throw new Exception("Teams can't play themselves");
             return new Game()
             {
                 Home = home,

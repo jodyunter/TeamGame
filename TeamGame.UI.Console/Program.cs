@@ -34,7 +34,7 @@ namespace TeamGame.UI.ConsoleApp
 
             for (int i = 0; i < 20; i++)
             {
-                var team = new SeasonTeam() { Name = "Team " + i };
+                var team = new SeasonTeam() { Parent = new Team(i, "Team " + i, 5), Name = "Team " + i };
 
                 switch (i % 4)
                 {
