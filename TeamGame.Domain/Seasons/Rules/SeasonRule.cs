@@ -22,8 +22,8 @@ namespace TeamGame.Domain.Seasons.Rules
             CreateAndAddTeams(season, TeamRules);
 
             gameCreator.Competition = season;
-            season.GameCreator = gameCreator;            
-
+            season.GameCreator = gameCreator;
+            season.Schedule = CreateSchedule(null, season);
             return season;
         }
 
@@ -31,7 +31,7 @@ namespace TeamGame.Domain.Seasons.Rules
         {
             ScheduleRules.ToList().ForEach(rule =>
             {
-               var initial = SeasonScheduler.CreateGamesByRule(rule, season);
+               initial = SeasonScheduler.CreateGamesByRule(rule, season);
             });
 
             return initial;

@@ -8,9 +8,10 @@ namespace TeamGame.Domain.Seasons.Scheduling
 {
     public class SeasonScheduler:Scheduler
     {
+
         public static Schedule CreateGamesByRule(SeasonScheduleRule rule, Season season)
         {
-            var schedule = season.Schedule();
+            var schedule = season.Schedule;
 
             switch(rule.RuleType)
             {
@@ -20,14 +21,7 @@ namespace TeamGame.Domain.Seasons.Scheduling
 
                     var newSchedule = CreateGames(season.Year, -1, 1, homeTeams, awayTeams, rule.Iterations, rule.HomeAndAway, season.GameCreator);
 
-                    if (schedule.Days.Count == 0)
-                    {
-                        schedule = newSchedule;
-                    }
-                    else
-                    {
-                        MergeSchedules(schedule, newSchedule);
-                    }
+                    MergeSchedules(schedule, newSchedule);                    
 
                     break;
                 case SeasonScheduleRuleType.DivisionLevel:
@@ -40,15 +34,9 @@ namespace TeamGame.Domain.Seasons.Scheduling
                         var schedulingTeams = division.Teams.ToList<ITeam>();
 
                         var newSchedule = CreateGames(season.Year, -1, 1, schedulingTeams, rule.Iterations, rule.HomeAndAway, season.GameCreator);
-
-                        if (schedule.Days.Count == 0)
-                        {
-                            schedule = newSchedule;
-                        }
-                        else
-                        {
-                            MergeSchedules(schedule, newSchedule);
-                        }
+                        
+                        MergeSchedules(schedule, newSchedule);
+                        
                     });
                     break;
                 default:

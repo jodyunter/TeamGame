@@ -10,7 +10,7 @@ namespace TeamGame.Domain.Seasons.Scheduling
     {
         //exceptions should really be validations
         public Dictionary<Team, SeasonScheduleTeamCounter> TeamCounts { get; set; } = new Dictionary<Team, SeasonScheduleTeamCounter>();
-
+        public Season Season { get; set; }
         public void CountByRuleType(SeasonScheduleRule rule)
         {
             switch(rule.RuleType)

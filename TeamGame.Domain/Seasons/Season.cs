@@ -18,7 +18,7 @@ namespace TeamGame.Domain.Seasons
 
         public IList<ICompetitionTeam> Teams { get; set; } = new List<ICompetitionTeam>();
         public IList<SeasonDivision> Divisions { get; set; } = new List<SeasonDivision>();
-        public Schedule Schedule { get; set; }
+        public Schedule Schedule { get; set; } = new Schedule();
 
         public IGameCreator GameCreator { get; set; }
 

@@ -37,7 +37,8 @@ namespace TeamGame.Domain.Seasons.Rules
                 RuleType = SeasonScheduleRuleType.DivisionLevel,
                 RuleName = name,
                 Iterations = iterations,
-                HomeAndAway = homeAndAway
+                HomeAndAway = homeAndAway,
+                DivisionLevel = divLevel
             };
         }
     }

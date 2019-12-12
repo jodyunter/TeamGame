@@ -19,18 +19,16 @@ namespace TeamGame.UI.ConsoleApp
             var seasonRule = DataSetup.SetupSeasonRule(10);
 
             var season = seasonRule.Create(null, 1, 1, 1, new SeasonGameCreator(null, true, 1));
+                     
 
-            
-
-            var seasonRules = new SeasonGameCreator(season, true, 1);
-
-            var schedule = SeasonScheduler.CreateGamesByRule(seasonRule.ScheduleRules[0], season);
 
             //var schedule = new Schedule();
 
             //Scheduler.MergeSchedules(schedule, divASched, divBSched, divCSched, divDSched, confASched, confBSched, interConfSched);
 
             var random = new Random();
+
+            var schedule = season.Schedule;
 
             while (!schedule.IsComplete())
             {
@@ -58,7 +56,15 @@ namespace TeamGame.UI.ConsoleApp
                 Console.WriteLine(standings);
             });
 
+            season.GetStandingsByDivisionLevel(DivisionLevel.Conference).ToList().ForEach(standings =>
+            {
+                Console.WriteLine(standings);
+            });
 
+            season.GetStandingsByDivisionLevel(DivisionLevel.Province).ToList().ForEach(standings =>
+            {
+                Console.WriteLine(standings);
+            });
 
             Console.ReadLine();
         }
