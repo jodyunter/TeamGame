@@ -32,8 +32,12 @@ namespace TeamGame.Domain.Seasons
                 return result;
             }
         }
+        
 
-        public SeasonDivision() { }
+        public SeasonDivision() 
+        {
+ 
+        }
 
         public SeasonDivision(string name, Season season, DivisionLevel level, SeasonDivision parent)
         {
@@ -57,8 +61,17 @@ namespace TeamGame.Domain.Seasons
             {
                 Parent.AddChildDivision(this);
             }
-            Children = children;
-            Ranking = ranking;            
+            if (children != null)
+            {
+                Children = children;
+            }
+
+            if (ranking != null)
+            {
+                Ranking = ranking;
+            }
+
+            
         }
 
         //does the team belong to this division and not a child division?

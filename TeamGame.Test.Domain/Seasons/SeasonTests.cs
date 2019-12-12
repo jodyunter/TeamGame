@@ -58,7 +58,7 @@ namespace TeamGame.Test.Domain.Seasons
 
             season.AddDivision(league);
 
-            Assert.Null(season.Teams);
+            Assert.StrictEqual(0, season.Teams.Count);
 
             season.AddDivision(conference);
 
