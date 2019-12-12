@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using TeamGame.Domain.Competitions;
+using TeamGame.Domain.Scheduling;
 using TeamGame.Domain.Standing;
 
 namespace TeamGame.Domain.Seasons
@@ -17,6 +18,9 @@ namespace TeamGame.Domain.Seasons
 
         public IList<ICompetitionTeam> Teams { get; set; } = new List<ICompetitionTeam>();
         public IList<SeasonDivision> Divisions { get; set; } = new List<SeasonDivision>();
+        public Schedule Schedule { get; set; }
+
+        public IGameCreator GameCreator { get; set; }
 
         public IList<SeasonRanking> Ranking {
             get

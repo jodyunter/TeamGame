@@ -18,8 +18,29 @@ namespace TeamGame.Domain.Seasons.Rules
         public int Iterations { get; set; } //each iteration is one applicaiton of the home vs away group
         public bool HomeAndAway { get; set; } //if true then the games are doubled         
 
-    }
+        public static SeasonScheduleRule CreateDivisionalRule(string name, SeasonDivisionRule homeGroup, int iterations, bool homeAndAway)
+        {
+            return new SeasonScheduleRule()
+            {
+                RuleType = SeasonScheduleRuleType.Divisional,
+                RuleName = name,
+                HomeGroup = homeGroup,
+                Iterations = iterations,
+                HomeAndAway = homeAndAway
+            };
+        }
 
+        public static SeasonScheduleRule CreateDivisionLevelRule(string name, DivisionLevel divLevel, int iterations, bool homeAndAway)
+        {
+            return new SeasonScheduleRule()
+            {
+                RuleType = SeasonScheduleRuleType.DivisionLevel,
+                RuleName = name,
+                Iterations = iterations,
+                HomeAndAway = homeAndAway
+            };
+        }
+    }
     public enum SeasonScheduleRuleType
     {
         Divisional = 0,

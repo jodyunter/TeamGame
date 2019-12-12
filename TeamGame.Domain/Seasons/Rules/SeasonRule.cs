@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using TeamGame.Domain.Scheduling;
+using TeamGame.Domain.Seasons.Scheduling;
 
 namespace TeamGame.Domain.Seasons.Rules
 {
@@ -10,7 +12,8 @@ namespace TeamGame.Domain.Seasons.Rules
         public string Name { get; set; }
         public IList<SeasonDivisionRule> DivisionRules { get; set; }
         public IList<SeasonTeamRule> TeamRules { get; set; }
-        public Season Create(Season previousSeason, int number, int year, int startingDay)
+        public IList<SeasonScheduleRule> ScheduleRules { get; set; }
+        public Season Create(Season previousSeason, int number, int year, int startingDay, SeasonGameCreator gameCreator)
         {
 
             var season = new Season() { Name = Name, Complete = false, Number = number, Year = year, StartingDay = startingDay, Started = false };
@@ -18,7 +21,20 @@ namespace TeamGame.Domain.Seasons.Rules
             CreateAndAddDivision(season, DivisionRules);
             CreateAndAddTeams(season, TeamRules);
 
+            gameCreator.Competition = season;
+            season.GameCreator = gameCreator;            
+
             return season;
+        }
+
+        public Schedule CreateSchedule(Schedule initial, Season season)
+        {
+            ScheduleRules.ToList().ForEach(rule =>
+            {
+               var initial = SeasonScheduler.CreateGamesByRule(rule, season);
+            });
+
+            return initial;
         }
 
         public void CreateAndAddTeams(Season season, IList<SeasonTeamRule> teamRules)
