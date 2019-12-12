@@ -11,7 +11,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TeamGame.Test.Domain", "Tea
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TeamGame.Data", "TeamGame.Data\TeamGame.Data.csproj", "{2D84D5F9-FC81-47CC-A86E-08904239D40F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeamGame.Service", "TeamGame.Service\TeamGame.Service.csproj", "{237C3FFF-CB51-4FEA-8286-6C840A2EE083}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TeamGame.Service", "TeamGame.Service\TeamGame.Service.csproj", "{237C3FFF-CB51-4FEA-8286-6C840A2EE083}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{361C4C39-60A4-4E99-AF2B-6A3CF3ED9B13}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\dotnetcore.yml = .github\workflows\dotnetcore.yml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
