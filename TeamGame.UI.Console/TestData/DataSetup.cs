@@ -16,7 +16,7 @@ namespace TeamGame.UI.ConsoleApp.TestData
 
             for (int i = 0; i < teamNames.Length; i++)
             {
-                var teamName = teamName[i];
+                var teamName = teamNames[i];
 
                 result[teamName] = CreateTeam(nextId++, teamName, 5);
             }
