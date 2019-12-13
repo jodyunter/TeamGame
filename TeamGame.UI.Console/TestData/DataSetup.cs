@@ -118,15 +118,15 @@ namespace TeamGame.UI.ConsoleApp.TestData
             var westernScheduleRule = SeasonScheduleRule.CreateDivisionalRule("Western Rule", divisionRules.Where(d => d.Name.Equals(westernName)).First(), 3, true);
             var ontarioScheduleRule = SeasonScheduleRule.CreateDivisionalRule("Ontario Rule", divisionRules.Where(d => d.Name.Equals(ontarioName)).First(), 2, true);
             var notOntarioScheduleRule = SeasonScheduleRule.CreateDivisionalRule("Not Ontario Rule", divisionRules.Where(d => d.Name.Equals(notOntarioName)).First(), 2, true);
-            var easternScheduleRule = SeasonScheduleRule.CreateDivisionalRule("Eastern Rule", divisionRules.Where(d => d.Name.Equals(easternName)).First(), 1, true);                        
-            
+            var easternScheduleRule = SeasonScheduleRule.CreateDivisionalRule("Eastern Rule", divisionRules.Where(d => d.Name.Equals(easternName)).First(), 1, true);
+            //var teamRule = SeasonScheduleRule.CreateTeamVsTeamRule("Team Rule", teamRules.Select(t => t.Parent).Where(t => t.Name.Equals("Montreal")).First(), teamRules.Select(t => t.Parent).Where(t => t.Name.Equals("Winnipeg")).First(), 55, true);
             var scheduleRules = new List<SeasonScheduleRule>()
             {
                 leagueScheduleRule,
                 westernScheduleRule,
                 ontarioScheduleRule,
                 notOntarioScheduleRule,
-                easternScheduleRule
+                easternScheduleRule              
             };
 
             rule.DivisionRules = divisionRules;
