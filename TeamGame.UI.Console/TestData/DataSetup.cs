@@ -10,6 +10,20 @@ namespace TeamGame.UI.ConsoleApp.TestData
     public class DataSetup
     {
 
+        public static Dictionary<string, Team> CreateTeams(int nextId, params string[] teamNames)
+        {
+            var result = new Dictionary<string, Team>();
+
+            for (int i = 0; i < teamNames.Length; i++)
+            {
+                var teamName = teamName[i];
+
+                result[teamName] = CreateTeam(nextId++, teamName, 5);
+            }
+
+            return result;
+        }
+
         public static void AddTeamsForRule(string divisionName, IList<SeasonDivisionRule> divisionRules, IList<SeasonTeamRule> fullTeamList, params Team[] teams)
         {
             var divisionRule = divisionRules.ToList().Where(d => d.Name.Equals(divisionName)).First();
