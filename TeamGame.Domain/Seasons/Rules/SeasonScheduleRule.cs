@@ -30,6 +30,18 @@ namespace TeamGame.Domain.Seasons.Rules
             };
         }
 
+        public static SeasonScheduleRule CreateTeamVsTeamRule(string name, Team home, Team away, int iterations, bool homeAndAway)
+        {
+            return new SeasonScheduleRule()
+            {
+                RuleType = SeasonScheduleRuleType.Team,
+                RuleName = name,
+                ParentHomeTeam = home,
+                ParentAwayTeam = away,
+                Iterations = iterations,
+                HomeAndAway = homeAndAway
+            };
+        }
         public static SeasonScheduleRule CreateDivisionLevelRule(string name, DivisionLevel divLevel, int iterations, bool homeAndAway)
         {
             return new SeasonScheduleRule()

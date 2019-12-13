@@ -116,10 +116,10 @@ namespace TeamGame.UI.ConsoleApp.TestData
 
             var leagueScheduleRule = SeasonScheduleRule.CreateDivisionalRule("NHL Rule", divisionRules.Where(d => d.Name.Equals(leagueName)).First(), 2, true);            
             var westernScheduleRule = SeasonScheduleRule.CreateDivisionalRule("Western Rule", divisionRules.Where(d => d.Name.Equals(westernName)).First(), 3, true);
-            var ontarioScheduleRule = SeasonScheduleRule.CreateDivisionalRule("Ontario Rule", divisionRules.Where(d => d.Name.Equals(ontarioName)).First(), 3, true);
-            var notOntarioScheduleRule = SeasonScheduleRule.CreateDivisionalRule("Not Ontario Rule", divisionRules.Where(d => d.Name.Equals(notOntarioName)).First(), 3, true);
-            var easternScheduleRule = SeasonScheduleRule.CreateDivisionalRule("Eastern Rule", divisionRules.Where(d => d.Name.Equals(easternName)).First(), 1, true);
-
+            var ontarioScheduleRule = SeasonScheduleRule.CreateDivisionalRule("Ontario Rule", divisionRules.Where(d => d.Name.Equals(ontarioName)).First(), 2, true);
+            var notOntarioScheduleRule = SeasonScheduleRule.CreateDivisionalRule("Not Ontario Rule", divisionRules.Where(d => d.Name.Equals(notOntarioName)).First(), 2, true);
+            var easternScheduleRule = SeasonScheduleRule.CreateDivisionalRule("Eastern Rule", divisionRules.Where(d => d.Name.Equals(easternName)).First(), 1, true);                        
+            
             var scheduleRules = new List<SeasonScheduleRule>()
             {
                 leagueScheduleRule,

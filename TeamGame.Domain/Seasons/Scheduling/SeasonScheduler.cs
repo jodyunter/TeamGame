@@ -13,15 +13,15 @@ namespace TeamGame.Domain.Seasons.Scheduling
         {
             var schedule = season.Schedule;
 
-            switch(rule.RuleType)
+            switch (rule.RuleType)
             {
                 case SeasonScheduleRuleType.Divisional:
                     var homeTeams = season.Divisions.Where(d => d.Name.Equals(rule.HomeGroup.Name)).First().Teams.ToList<ITeam>();
                     var awayTeams = rule.AwayGroup == null ? null : season.Divisions.Where(d => d.Name.Equals(rule.AwayGroup.Name)).FirstOrDefault().Teams.ToList<ITeam>();
 
-                    var newSchedule = CreateGames(season.Year, -1, 1, homeTeams, awayTeams, rule.Iterations, rule.HomeAndAway, season.GameCreator);
+                    var divisionalSchedule = CreateGames(season.Year, -1, 1, homeTeams, awayTeams, rule.Iterations, rule.HomeAndAway, season.GameCreator);
 
-                    MergeSchedules(schedule, newSchedule);                    
+                    MergeSchedules(schedule, divisionalSchedule);
 
                     break;
                 case SeasonScheduleRuleType.DivisionLevel:
@@ -33,11 +33,20 @@ namespace TeamGame.Domain.Seasons.Scheduling
                     {
                         var schedulingTeams = division.Teams.ToList<ITeam>();
 
-                        var newSchedule = CreateGames(season.Year, -1, 1, schedulingTeams, rule.Iterations, rule.HomeAndAway, season.GameCreator);
-                        
-                        MergeSchedules(schedule, newSchedule);
-                        
+                        var divisionLevelSchedule = CreateGames(season.Year, -1, 1, schedulingTeams, rule.Iterations, rule.HomeAndAway, season.GameCreator);
+
+                        MergeSchedules(schedule, divisionLevelSchedule);
+
                     });
+                    break;
+                case SeasonScheduleRuleType.Team:
+                    var homeTeam = season.Teams.ToList().Where(t => t.Parent.Id == rule.ParentHomeTeam.Id).First();
+                    var awayTeam = season.Teams.ToList().Where(t => t.Parent.Id == rule.ParentAwayTeam.Id).First();
+
+                    var teamVsTeamSchedule = CreateGames(season.Year, -1, 1, new List<ITeam>() { homeTeam }, new List<ITeam>() { awayTeam }, rule.Iterations, rule.HomeAndAway, season.GameCreator);
+
+                    MergeSchedules(schedule, teamVsTeamSchedule);
+
                     break;
                 default:
                     throw new SeasonScheduleException("Rule has not been implemented yet: " + rule.RuleType);

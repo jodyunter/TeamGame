@@ -7,7 +7,7 @@ namespace TeamGame.Domain.Standing
 {
     public class Standings
     {
-        public static string STANDINGS_FORMATTER = "{0,3}. {1,-10}{2,3}{3,3}{4,4}{5,4}{6,4}{7,4}{8,4}{9,5}{10,5}";
+        public static string STANDINGS_FORMATTER = "{0,3}. {1,-13}{2,3}{3,3}{4,4}{5,4}{6,4}{7,4}{8,4}{9,5}{10,5}";
         public string Name { get; set; }        
         public IList<StandingsTeam> Teams { get; set; }
         public static bool ProcessGame(IGame g)
