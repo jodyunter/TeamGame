@@ -4,7 +4,7 @@ using System.Text;
 
 namespace TeamGame.Domain.Playoffs
 {
-    class PlayoffSeries
+    public class PlayoffSeries
     {
     }
 }
