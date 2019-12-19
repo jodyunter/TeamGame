@@ -6,8 +6,9 @@ using TeamGame.Domain.Standing;
 
 namespace TeamGame.Domain.Seasons
 {
-    public class Season:ICompetition
+    public class Season:ICompetition,IDataObject
     {
+        public long Id { get; set; }
         public int Number { get; set; }
         public int Year { get; set; }
         public int StartingDay { get; set; }
@@ -34,8 +35,8 @@ namespace TeamGame.Domain.Seasons
                 return result;
             }    
         
-        }
-       
+        }        
+
         public void AddTeam(ICompetitionTeam team)
         {
 
@@ -128,8 +129,8 @@ namespace TeamGame.Domain.Seasons
 
             division.Ranking.ToList().ForEach(sr =>
             {
-                sr.Team.Rank = sr.Rank;
-                standings.Teams.Add(sr.Team);
+                ((StandingsTeam)sr.Team).Rank = sr.Rank;
+                standings.Teams.Add((StandingsTeam)sr.Team);
 
             });
 
