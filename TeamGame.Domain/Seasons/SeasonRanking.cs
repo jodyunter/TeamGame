@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using TeamGame.Domain.Competitions;
 using TeamGame.Domain.Standing;
 
 namespace TeamGame.Domain.Seasons
@@ -7,12 +8,12 @@ namespace TeamGame.Domain.Seasons
     public class SeasonRanking:IRanking
     {
 
-        public SeasonTeam Team { get; set; }
+        //public ICompetitionTeam Team { get; set; }
         public int Rank { get; set; }
         public SeasonDivision Division { get; set; }
         public string Group { get { return Division.Name; } }
 
-        ITeam IRanking.Team
+        public ITeam Team
         {
             get { return Team; }
             set
