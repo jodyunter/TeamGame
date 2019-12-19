@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 using TeamGame.Domain.Competitions;
 
 namespace TeamGame.Domain.Playoffs
@@ -17,6 +17,8 @@ namespace TeamGame.Domain.Playoffs
         public bool Complete { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         public IGameCreator GameCreator { get; set; }
         public IList<PlayoffSeries> Series { get; set; }
+        public IList<PlayoffGroup> Groups { get; set; }
+
         public void AddTeam(ICompetitionTeam team)
         {
             throw new NotImplementedException();
@@ -31,9 +33,26 @@ namespace TeamGame.Domain.Playoffs
             series.ProcessGame((PlayoffGame)game);
         }
 
+        //should be used when a playoff series is done, or at the beginning of the playoffs when setting up initial groups
         public void AddRanking(PlayoffTeam team, string groupName, string initialRankComesFrom)
         {
+            var group = Groups.Where(g => g.Name.Equals(groupName)).FirstOrDefault();
+            var initialRankingGroup = Groups.Where(g => g.Name.Equals(initialRankComesFrom)).First();//it's okay because if it's null config is messed up
 
+            if (group == null)
+            {
+                group = new PlayoffGroup() { Name = groupName };
+            }
+
+            var currentRanking = group.Rankings.Where(r => ((PlayoffTeam)r.Team).Id == team.Id).FirstOrDefault();
+            var initialGroupRanking = initialRankingGroup.Rankings.Where(r => ((PlayoffTeam)r.Team).Id == team.Id).FirstOrDefault());
+
+            if (currentRanking == null) throw new PlayoffException("Why was it already here!?");
+            else
+            {
+                group.Rankings.Add(new PlayoffRanking() { Group = group, Rank = initialGroupRanking.Rank, Team = team });
+            }
+            
         }
     }
 }
