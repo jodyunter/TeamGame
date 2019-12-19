@@ -13,7 +13,8 @@ namespace TeamGame.Domain
         bool Complete { get; set; }
         bool Processed { get; set; }
 
-
+        ITeam GetWinningTeam();
+        ITeam GetLosingTeam();
         public void Play(Random random);
 
     }

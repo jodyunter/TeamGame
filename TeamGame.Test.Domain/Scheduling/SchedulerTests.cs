@@ -16,7 +16,7 @@ namespace TeamGame.Test.Domain.Scheduling
         [Fact]
         public void ShouldCreateGamesTwoOfSameGroup()
         {
-            throw new NotImplementedException()
+            throw new NotImplementedException();
         }
 
         [Fact]

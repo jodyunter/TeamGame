@@ -53,7 +53,8 @@ namespace TeamGame.Test.Domain.Seasons.Rules
 
             seasonRule.DivisionRules = new List<SeasonDivisionRule>() { league, conf1, conf2, div1, div2, div3, div4, oddDivParent, oddDivChild };
             seasonRule.TeamRules = new List<SeasonTeamRule>() { teamRule1, teamRule2, teamRule3, teamRule4, teamRule5, teamRule6, teamRule7, teamRule8, teamRule9, teamRule10, teamRule11, teamRule12, teamRule13, teamRule14 };
-            var season = seasonRule.Create(null, 1, 1, 1);
+            //where will the game creator come from?
+            var season = seasonRule.Create(null, 1, 1, 1, new SeasonGameCreator(null, true, 2));
 
             Assert.StrictEqual(9, season.Divisions.Count);
             Assert.StrictEqual(12, season.Teams.Count);

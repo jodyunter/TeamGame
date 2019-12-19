@@ -24,7 +24,16 @@ namespace TeamGame.Domain.Playoffs
 
         public void ProcessGame(ICompetitionGame game)
         {
-            throw new NotImplementedException();
+            var playoffGame = (PlayoffGame)game;
+
+            var series = playoffGame.Series;
+
+            series.ProcessGame((PlayoffGame)game);
+        }
+
+        public void AddRanking(PlayoffTeam team, string groupName, string initialRankComesFrom)
+        {
+
         }
     }
 }

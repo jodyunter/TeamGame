@@ -9,6 +9,10 @@ namespace TeamGame.Domain.Playoffs.Rules
         public string RuleName { get; set; }
         public string SeriesName { get; set; }
         public string HomeTeamFrom { get; set; }        
-
+        public string AwayTeamFrom { get; set; }
+        public int HomeTeamValue { get; set; }
+        public int AwayTeamValue { get; set; }
+        public string HomeRankFrom { get; set; }
+        public string AwayRankFrom { get; set; }
     }
 }

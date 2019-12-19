@@ -16,7 +16,6 @@ namespace TeamGame.Domain
         public int MaxOverTimePeriods { get; set; } = 0;
         public bool Complete { get; set; } = false;
         public bool Processed { get; set; } = false;
-
         public Game() { }
 
         public void Play(Random random)
@@ -57,5 +56,30 @@ namespace TeamGame.Domain
             var formatter = "{0,3}. {1,10}: {2,3} - {3,3} :{4,10}";
             return string.Format(formatter, Number, Home.Name, HomeScore, AwayScore, Away.Name);
         }
+
+        public ITeam GetWinningTeam()
+        {
+            if (!Complete)
+            {
+                return null;
+            }
+
+            if (HomeScore > AwayScore) return Home;
+            else if (AwayScore > HomeScore) return Away;
+            else return null;
+        }
+        public ITeam GetLosingTeam()
+        {
+            if (!Complete)
+            {
+                return null;
+            }
+
+            if (HomeScore > AwayScore) return Away;
+            else if (AwayScore > HomeScore) return Home;
+            else return null;
+        }
+
+
     }
 }

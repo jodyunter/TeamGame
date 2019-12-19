@@ -19,10 +19,12 @@ namespace TeamGame.Domain.Playoffs
         public int HomeWins { get; set; }
         public int AwayWins { get; set; } 
         public string HomeFrom { get; set; }
+        public int HomeFromRank { get; set; }
         public string AwayFrom { get; set; }
+        public string AwayFromRank { get; set; }
         public int RequiredWins { get; set; }
 
-        public bool Complete { get { return (HomeWins == RequiredWins || AwayWins == RequiredWins) } }
+        public bool Complete { get { return (HomeWins == RequiredWins || AwayWins == RequiredWins); } }
 
         public IList<PlayoffGame> Games { get; set; } = new List<PlayoffGame>();
 
@@ -33,13 +35,14 @@ namespace TeamGame.Domain.Playoffs
 
             if (!Complete)
             {                
-                int winsRequired = RequiredWins - HomeWins >= RequiredWins - AwayWins ? RequiredWins - HomeWins : RequiredWins - AwayWins;
+                int winsRequired = RequiredWins - HomeWins <= RequiredWins - AwayWins ? RequiredWins - HomeWins : RequiredWins - AwayWins;
 
                 int inCompleteOrUnProcessedGames = GetInCompelteOrUnProcessedGames().Count;
 
                 for (int i = 0; i < (winsRequired - inCompleteOrUnProcessedGames); i++)
                 {
                     var newGame = (PlayoffGame)gameCreater.CreateGame(Home, Away);
+                    newGame.Series = this;
                     newGames.Add(newGame);
                     Games.Add(newGame);
                 }
@@ -55,7 +58,51 @@ namespace TeamGame.Domain.Playoffs
 
         public void ProcessGame(PlayoffGame game)
         {
-            throw new NotImplementedException();
+            if (Complete)
+            {
+                throw new PlayoffException("Can't process game in a complete series");
+            }
+
+            if (!game.Complete)
+            {
+                throw new PlayoffException("Game is not complete, cannot process");
+            }
+
+            if (game.Processed)
+            {
+                throw new PlayoffException("Game is already processed");
+            }
+
+            var homeTeam = (PlayoffTeam)game.Home;
+            var awayTeam = (PlayoffTeam)game.Away;
+
+            if (homeTeam.Id != Home.Id && homeTeam.Id != Away.Id)
+            {
+                throw new PlayoffException("Home team in game is not a team in the series");
+            }
+
+            if (awayTeam.Id != Away.Id && awayTeam.Id != Home.Id)
+            {
+                throw new PlayoffException("Away team in game is not a team in the series");
+            }
+
+            if (game.HomeScore == game.AwayScore)
+            {
+                throw new PlayoffException("Games cannot be tied!");
+            }
+
+            var winningTeam = (PlayoffTeam)game.GetWinningTeam();
+
+            if (Home.Id == winningTeam.Id)
+            {
+                HomeWins++;
+            }
+            else if (Away.Id == winningTeam.Id)
+            {
+                AwayWins++;
+            }
+
+            game.Processed = true;
         }
     }
 }

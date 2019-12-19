@@ -7,6 +7,7 @@ namespace TeamGame.Domain.Playoffs
 {
     public class PlayoffGame : Game, ICompetitionGame
     {
-        public ICompetition Competition { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public ICompetition Competition { get; set; }
+        public PlayoffSeries Series { get; set; }
     }
 }
