@@ -14,5 +14,10 @@ namespace TeamGame.Domain.Playoffs.Rules
         public int AwayTeamValue { get; set; }
         public string HomeRankFrom { get; set; }
         public string AwayRankFrom { get; set; }
+        public int RequiredWins { get; set; }
+        public string WinnerGoesTo { get; set; }
+        public string WinnerRankFrom { get; set; }
+        public string LoserGoesTo { get; set; }
+        public string LoserRankFrom { get; set; }
     }
 }
