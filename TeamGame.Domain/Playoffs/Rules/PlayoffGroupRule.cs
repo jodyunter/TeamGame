@@ -14,22 +14,22 @@ namespace TeamGame.Domain.Playoffs.Rules
         public int LastRank { get; set; }
 
         //get the teams from the competition and add them to the group
-        public static void AddTeamsFromRuleToCompetition(PlayoffGroupRule rule, ICompetition oldCompetition, Playoff playoff)
+        public void AddTeamsFromRuleToCompetition(ICompetition oldCompetition, Playoff playoff)
         {
-            if (oldCompetition.Name.Equals(rule.FromCompetitionName))
+            if (oldCompetition.Name.Equals(FromCompetitionName))
             {
-                var oldRankings = oldCompetition.Rankings.Where(r => r.Group.Equals(rule.GroupName) && r.Rank >= rule.FirstRank && r.Rank <= rule.LastRank).ToList();
+                var oldRankings = oldCompetition.Rankings.Where(r => r.Group.Equals(GroupName) && r.Rank >= FirstRank && r.Rank <= LastRank).ToList();
 
                 var newRankings = new List<PlayoffRanking>();
 
                 oldRankings.ForEach(oldRank =>
                 {
-                    playoff.AddRanking(oldRank.Team.Name, rule.GroupName, oldRank.Rank);
+                    playoff.AddRanking(oldRank.Team.Name, GroupName, oldRank.Rank);
                 });
             }
             else
             {
-                throw new PlayoffException("Can't add competition " + oldCompetition.Name + " expecting: " + rule.FromCompetitionName);
+                throw new PlayoffException("Can't add competition " + oldCompetition.Name + " expecting: " + FromCompetitionName);
             }
         }
     }
