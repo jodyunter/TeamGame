@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using TeamGame.Domain.Competitions;
 using TeamGame.Domain.Scheduling;
@@ -23,17 +24,21 @@ namespace TeamGame.Domain.Seasons
 
         public IGameCreator GameCreator { get; set; }
 
-        public IList<SeasonRanking> Ranking {
+        public IList<IRanking> Rankings {
             get
             {
-                var result = new List<SeasonRanking>();
+                var result = new List<IRanking>();
                 Divisions.ToList().ForEach(division =>
                 {
                     result.AddRange(division.Ranking);
                 });
 
                 return result;
-            }    
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
         
         }        
 

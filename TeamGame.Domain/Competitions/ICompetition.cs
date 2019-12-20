@@ -14,6 +14,7 @@ namespace TeamGame.Domain.Competitions
         bool Started { get; set; }
         bool Complete { get; set; }
         IGameCreator GameCreator { get; set; }
+        public IList<IRanking> Rankings { get; set; }
         void ProcessGame(ICompetitionGame game);
         void AddTeam(ICompetitionTeam team);
 

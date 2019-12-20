@@ -8,7 +8,9 @@ namespace TeamGame.Domain.Playoffs
     {
         public int Rank { get; set; }   
         public int Round { get; set; }//so we know when we expect the groups to be complete, maybe create playoff divisions!
-        public PlayoffGroup Group { get; set; }
+        public PlayoffGroup PlayoffGroup { get; set; }
+
+        public string Group { get { return PlayoffGroup.Name; } }
 
         public ITeam Team
         {
